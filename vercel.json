@@ -1,7 +1,7 @@
 {
   "routes": [
     {
-      "src": "/blog",
+      "src": "/",
       "dest": "https://theshopdigest.com/"
     }
   ]
