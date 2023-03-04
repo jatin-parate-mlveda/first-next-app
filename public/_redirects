@@ -1,2 +1,4 @@
+/apps /apps
 /apps/* /apps/:splat
+/_next/* /_next/:splat
 /* http://45.79.140.122/ 200
