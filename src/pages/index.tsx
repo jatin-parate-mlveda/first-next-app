@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Button } from 'react-bootstrap'
 import styles from "@/styles/Home.module.css";
 import { GetServerSideProps, GetStaticProps } from "next";
 import mongoose, { HydratedDocument } from "mongoose";
@@ -49,7 +50,7 @@ export default function Home(props: Props) {
       </Head>
       <main className={styles.main}>
         <pre>{JSON.stringify(props.data, null, 2)}</pre>
-        <button onClick={onClick}>Insert Data</button>
+        <Button onClick={onClick}>Insert Data</Button>
         <hr />
         <ul>
           {props.apps.map((app) => (
