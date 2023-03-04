@@ -39,6 +39,11 @@ export default function AppPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <nav className="navbar navbar-light bg-light">
+          <a className="navbar-brand" href="#">
+            Navbar
+          </a>
+        </nav>
         <h1>{props.app.name}</h1>
       </main>
     </>
