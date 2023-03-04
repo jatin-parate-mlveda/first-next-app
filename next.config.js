@@ -4,6 +4,16 @@ const nextConfig = {
   trailingSlash: true,
   async rewrites() {
     return {
+      beforeFiles: [
+        {
+          source: "/wp-content/:path*",
+          destination: "http://45.79.140.122/wp-content/:path*",
+        },
+        {
+          source: "/(!apps)?wp-content/:path*/",
+          destination: "http://45.79.140.122/wp-content/:path*/",
+        },
+      ],
       afterFiles: [
         // {
         //   source: "/_next/:path*",
@@ -18,6 +28,10 @@ const nextConfig = {
         //   destination: "/apps/:path*",
         // },
         {
+          source: "/(!apps)?wp-content/:path/",
+          destination: "http://45.79.140.122/wp-content/:path/",
+        },
+        {
           source: "/(!apps)?:path*/",
           destination: "http://45.79.140.122/:path*/",
         },
@@ -26,9 +40,9 @@ const nextConfig = {
         //   destination: "http://45.79.140.122/:path/",
         // },
         {
-          source: '/:path/',
+          source: "/:path/",
           destination: "http://45.79.140.122/:path/",
-        }
+        },
       ],
       // afterFiles: [
       //   // {
