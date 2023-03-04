@@ -26,6 +26,8 @@ export const getStaticPaths: GetStaticPaths<{ handle: string }> = async (
 };
 
 export default function AppPage(props: Props) {
+  if (!props.app) return <h1>Not found!</h1>;
+
   return (
     <>
       <Head>
