@@ -10,6 +10,10 @@ const nextConfig = {
         destination: "/_next/:path*",
       },
       {
+        source: "/apps/",
+        destination: "/apps/",
+      },
+      {
         source: "/apps/:path*",
         destination: "/apps/:path*",
       },
