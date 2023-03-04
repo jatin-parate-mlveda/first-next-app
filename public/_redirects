@@ -1,2 +1,2 @@
-/apps/* /apps/*
-/* https://www.theshopdigest.com/ 200
+/apps/* /apps/:splat
+/* http://45.79.140.122/ 200
