@@ -16,16 +16,12 @@ export const getStaticProps: GetStaticProps<Props, { handle: string }> = async (
 export const getStaticPaths: GetStaticPaths<{ handle: string }> = async (
   context
 ) => {
-  await mongoConnect();
-  const apps = await Apps.find({}, {}, { maxTimeMS: 1000000 });
+  // await mongoConnect();
+  // const apps = await Apps.find({}, {}, { maxTimeMS: 1000000 });
 
   return {
-    fallback: false,
-    paths: apps.map((app) => ({
-      params: {
-        handle: app.handle,
-      },
-    })),
+    fallback: true,
+    paths: [],
   };
 };
 
