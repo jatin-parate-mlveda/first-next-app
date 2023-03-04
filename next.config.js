@@ -23,10 +23,18 @@ const nextConfig = {
       // ],
       afterFiles: [
         {
+          source: "/apps/:path*",
+          destination: "/apps/:path*",
+        },
+        {
           source: "/:path*",
           destination: "/api/proxy/",
         },
-      ]
+        {
+          source: "/(!apps)?:path*",
+          destination: "/api/proxy/",
+        },
+      ],
     };
   },
   // async rewrites() {
