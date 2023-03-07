@@ -13,6 +13,14 @@ const nextConfig = {
           source: "/(!apps)?wp-content/:path*/",
           destination: "http://45.79.140.122/wp-content/:path*/",
         },
+        {
+          source: "/superadmin/:path*",
+          destination: "http://45.79.140.122/superadmin/:path*",
+        },
+        {
+          source: "/(!apps)?superadmin/:path*/",
+          destination: "http://45.79.140.122/superadmin/:path*/",
+        },
       ],
       afterFiles: [
         // {
@@ -30,6 +38,10 @@ const nextConfig = {
         {
           source: "/(!apps)?wp-content/:path/",
           destination: "http://45.79.140.122/wp-content/:path/",
+        },
+        {
+          source: "/(!apps)?superadmin/:path/",
+          destination: "http://45.79.140.122/superadmin/:path/",
         },
         {
           source: "/(!apps)?:path*/",
