@@ -1,5 +1,7 @@
 import { GetStaticProps } from "next";
+import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 type Props = {
   content: string;
@@ -23,6 +25,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function TestBlog(props: Props) {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return <p>Hang in there...</p>;
+
+  if (status !== "authenticated")
+    return (
+      <>
+        <p>Not signed in.</p>
+        <button onClick={() => signIn("google")}>Sign in</button>
+      </>
+    );
   return (
     <>
       <Head>
@@ -40,7 +53,20 @@ export default function TestBlog(props: Props) {
         />
       </Head>
       <main>
-        <div dangerouslySetInnerHTML={{ __html: props.content }} />
+        <Navbar bg="light" expand="lg">
+          <Container>
+            <Navbar.Brand href="#home">ShopDigest</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                Signed in as: <a href="#login">{session.user!.name}</a>
+              </Navbar.Text>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        <Container className="mt-4">
+          <div dangerouslySetInnerHTML={{ __html: props.content }} />
+        </Container>
       </main>
     </>
   );
