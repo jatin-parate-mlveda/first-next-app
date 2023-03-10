@@ -28,8 +28,12 @@ export default function TestBlog(props: Props) {
       <Head>
         <title>{props.title}</title>
         <meta property="og:url" content="https://theshopdigest.com/blog/test" />
+        <meta name="og:url" content="https://theshopdigest.com/blog/test" />
         <meta property="og:title" content={props.title} />
-        <meta property="og:description" content={props.title} />
+        <meta name="og:title" content={props.title} />
+        <meta property="og:description" content={props.description} />
+        <meta name="og:description" content={props.description} />
+        <meta name="description" content={props.description} />
         <meta
           property="og:image"
           content="https://mlveda.b-cdn.net/wp-content/uploads/2022/12/logo-1.png"
