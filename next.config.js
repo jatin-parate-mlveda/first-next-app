@@ -2,6 +2,16 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.shopdigest.com',
+        port: '',
+        pathname: '/wp-content/**'
+      }
+    ]
+  },
   async rewrites() {
     return {
       beforeFiles: [
