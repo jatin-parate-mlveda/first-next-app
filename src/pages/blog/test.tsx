@@ -185,17 +185,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function TestBlog(props: Props) {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
 
-  if (status === "loading") return <p>Hang in there...</p>;
+  // if (status === "loading") return <p>Hang in there...</p>;
 
-  if (status !== "authenticated")
-    return (
-      <>
-        <p>Not signed in.</p>
-        <button onClick={() => signIn("google")}>Sign in</button>
-      </>
-    );
+  // if (status !== "authenticated")
+  //   return (
+  //     <>
+  //       <p>Not signed in.</p>
+  //       <button onClick={() => signIn("google")}>Sign in</button>
+  //     </>
+  //   );
 
   return (
     <>
