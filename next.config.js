@@ -45,26 +45,26 @@ const nextConfig = {
         //   source: "/apps/:path*",
         //   destination: "/apps/:path*",
         // },
-        // {
-        //   source: "/(!apps)?wp-content/:path/",
-        //   destination: "http://45.79.140.122/wp-content/:path/",
-        // },
+        {
+          source: "/(!apps)?wp-content/:path/",
+          destination: "http://45.79.140.122/wp-content/:path/",
+        },
         {
           source: "/(!apps)?superadmin/:path/",
           destination: "http://45.79.140.122/superadmin/:path/",
         },
-        // {
-        //   source: "/(!apps)?:path*/",
-        //   destination: "http://45.79.140.122/:path*/",
-        // },
+        {
+          source: "/(!apps)?:path*/",
+          destination: "http://45.79.140.122/:path*/",
+        },
         // {
         //   source: '/:path/',
         //   destination: "http://45.79.140.122/:path/",
         // },
-        // {
-        //   source: "/:path/",
-        //   destination: "http://45.79.140.122/:path/",
-        // },
+        {
+          source: "/:path/",
+          destination: "http://45.79.140.122/:path/",
+        },
       ],
       // afterFiles: [
       //   // {
