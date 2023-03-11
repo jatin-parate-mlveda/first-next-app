@@ -196,6 +196,7 @@ export default function TestBlog(props: Props) {
         <button onClick={() => signIn("google")}>Sign in</button>
       </>
     );
+
   return (
     <>
       <Head>
@@ -214,17 +215,6 @@ export default function TestBlog(props: Props) {
       </Head>
       <TopBar />
       <main className="site-main" id="primary">
-        {/*<Navbar bg="light" expand="lg">
-          <Container>
-            <Navbar.Brand href="#home">ShopDigest</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                Signed in as: <a href="#login">{session.user!.name}</a>
-              </Navbar.Text>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>*/}
         <section className="section">
           <div className="wrap">
             <div className="row">
