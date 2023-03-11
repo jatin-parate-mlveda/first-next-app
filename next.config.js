@@ -12,20 +12,20 @@ const nextConfig = {
       }
     ]
   },
-  // async rewrites() {
-  //   return {
-  //     beforeFiles: [
-  //       {
-  //         source: "/wp-content/:path*",
-  //         destination: "http://45.79.140.122/wp-content/:path*",
-  //       },
-  //       {
-  //         source: "/superadmin/:path*",
-  //         destination: "http://45.79.140.122/superadmin/:path*",
-  //       },
-  //     ],
-  //   };
-  // },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/wp-content/:path*",
+          destination: "http://45.79.140.122/wp-content/:path*",
+        },
+        {
+          source: "/superadmin/:path*",
+          destination: "http://45.79.140.122/superadmin/:path*",
+        },
+      ],
+    };
+  },
 };
 
 module.exports = nextConfig;
