@@ -71,7 +71,6 @@ export default function HomePage(props: Props) {
                   }
                   className="attachment-medium size-medium wp-post-image"
                   alt={post.slug}
-                  loading="lazy"
                 />
               </a>
             </div>
