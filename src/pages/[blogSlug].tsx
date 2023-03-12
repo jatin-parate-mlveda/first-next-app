@@ -40,12 +40,14 @@ export default function BlogPost(props: Props) {
     } = props;
 
     let newContent = contentHTML;
-    const iframeIndex = newContent.indexOf('<iframe')
+    while (newContent.indexOf("<iframe") !== -1) {
+      const iframeIndex = newContent.indexOf("<iframe");
 
-    if (iframeIndex !== -1) {
-      const iframeEndIndex = newContent.indexOf('</iframe>');
+      const iframeEndIndex = newContent.indexOf("</iframe>", iframeIndex);
 
-      newContent = newContent.slice(0, iframeIndex) + newContent.slice(iframeEndIndex + '</iframe>'.length - 1);
+      newContent =
+        newContent.slice(0, iframeIndex) +
+        newContent.slice(iframeEndIndex + "</iframe>".length - 1);
     }
 
     return newContent;
@@ -53,7 +55,6 @@ export default function BlogPost(props: Props) {
 
   useEffect(() => {
     if (!props.blog) return;
-
 
     const {
       blog: {
