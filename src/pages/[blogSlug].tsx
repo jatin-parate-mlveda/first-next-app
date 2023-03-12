@@ -33,16 +33,7 @@ export default function BlogPost(props: Props) {
     blog: {
       content: { rendered: contentHTML },
       _embedded: {
-        "wp:featuredmedia": [
-          {
-            caption: { rendered: featuredMediaCaption },
-            media_details: {
-              sizes: {
-                full: { source_url: featuredMediaSrc },
-              },
-            },
-          },
-        ],
+        "wp:featuredmedia": featuredMedia,
       },
     },
   } = props;
@@ -88,20 +79,20 @@ export default function BlogPost(props: Props) {
               </span>{" "}
             </div>
           </header>
-          <figure className="post-thumbnail post__single--thumbnail">
+          {featuredMedia && <figure className="post-thumbnail post__single--thumbnail">
             <Image
               width={800}
               height={400}
-              src={featuredMediaSrc}
+              src={featuredMedia[0].media_details.sizes.full.source_url}
               className="attachment-full size-full wp-post-image"
-              alt={featuredMediaCaption}
+              alt={featuredMedia[0].caption.rendered}
             />{" "}
             <figcaption
               dangerouslySetInnerHTML={{
-                __html: featuredMediaCaption,
+                __html: featuredMedia[0].caption.rendered,
               }}
             />
-          </figure>
+          </figure>}
           <div
             className="entry-content"
             dangerouslySetInnerHTML={{ __html: contentHTML }}
