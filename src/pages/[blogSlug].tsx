@@ -2,6 +2,7 @@ import BlogLayout from "@/components/BlogLayout";
 import { IWordpressBlog } from "@/interfaces/wordpress-blog.interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type Props = { blog: IWordpressBlog };
 
@@ -27,14 +28,46 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 };
 
 export default function BlogPost(props: Props) {
+  const [htmlContent, setHtmlContent] = useState(() => {
+    if (!props.blog) {
+      return "";
+    }
+
+    const {
+      blog: {
+        content: { rendered: contentHTML },
+      },
+    } = props;
+
+    let newContent = contentHTML;
+    const iframeIndex = newContent.indexOf('<iframe')
+
+    if (iframeIndex !== -1) {
+      const iframeEndIndex = newContent.indexOf('</iframe>');
+
+      newContent = newContent.slice(0, iframeIndex) + newContent.slice(iframeEndIndex + '</iframe>'.length - 1);
+    }
+
+    return newContent;
+  });
+
+  useEffect(() => {
+    if (!props.blog) return;
+
+
+    const {
+      blog: {
+        content: { rendered: contentHTML },
+      },
+    } = props;
+    setHtmlContent(contentHTML);
+  }, [props.blog]);
+
   if (!props.blog) return <h1>Loading...</h1>;
 
   const {
     blog: {
-      content: { rendered: contentHTML },
-      _embedded: {
-        "wp:featuredmedia": featuredMedia,
-      },
+      _embedded: { "wp:featuredmedia": featuredMedia },
     },
   } = props;
 
@@ -79,23 +112,25 @@ export default function BlogPost(props: Props) {
               </span>{" "}
             </div>
           </header>
-          {featuredMedia && <figure className="post-thumbnail post__single--thumbnail">
-            <Image
-              width={800}
-              height={400}
-              src={featuredMedia[0].media_details.sizes.full.source_url}
-              className="attachment-full size-full wp-post-image"
-              alt={featuredMedia[0].caption.rendered}
-            />{" "}
-            <figcaption
-              dangerouslySetInnerHTML={{
-                __html: featuredMedia[0].caption.rendered,
-              }}
-            />
-          </figure>}
+          {featuredMedia && (
+            <figure className="post-thumbnail post__single--thumbnail">
+              <Image
+                width={800}
+                height={400}
+                src={featuredMedia[0].media_details.sizes.full.source_url}
+                className="attachment-full size-full wp-post-image"
+                alt={featuredMedia[0].caption.rendered}
+              />{" "}
+              <figcaption
+                dangerouslySetInnerHTML={{
+                  __html: featuredMedia[0].caption.rendered,
+                }}
+              />
+            </figure>
+          )}
           <div
             className="entry-content"
-            dangerouslySetInnerHTML={{ __html: contentHTML }}
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
         </article>
       </div>
