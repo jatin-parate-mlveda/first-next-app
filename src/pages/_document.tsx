@@ -8,7 +8,7 @@ export default function Document() {
         <link
           rel="stylesheet"
           id="spdigest-style-css"
-          href="/wp-content/themes/spdigest/style.css"
+          href="https://shopdigest.com/wp-content/themes/spdigest/style.css"
           // href="http://45.79.140.122/wp-content/themes/spdigest/style.css"
           media="all"
         />

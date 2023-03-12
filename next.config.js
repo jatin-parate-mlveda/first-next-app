@@ -5,6 +5,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'secure.gravatar.com',
+        port: '',
+        pathname: '/avatar/**'
+      },
+      {
+        protocol: 'https',
         hostname: 'www.shopdigest.com',
         port: '',
         pathname: '/wp-content/**'

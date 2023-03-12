@@ -21,7 +21,7 @@ export interface IWordpressBlog {
   categories: number[];
   tags: number[];
   _embedded: {
-    "wp:featuredmedia": {
+    "wp:featuredmedia"?: {
       id: number;
       caption: { rendered: string };
       media_details: {
@@ -32,6 +32,23 @@ export interface IWordpressBlog {
           thumbnail: IMediaSize;
           full: IMediaSize;
         };
+      };
+    }[];
+    "wp:term": {
+      id: number;
+      link: string;
+      name: string;
+      slug: string;
+      taxonomy: string;
+    }[][];
+    author: {
+      id: number;
+      name: string;
+      link: string;
+      avatar_urls: {
+        24: string;
+        48: string;
+        96: string;
       };
     }[];
   };
