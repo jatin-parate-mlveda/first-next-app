@@ -1,4 +1,5 @@
 import { IWordpressBlog } from "@/interfaces/wordpress-blog.interface";
+import getCategoriesFromPost from "@/utils/getCategoriesFromPost";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -6,18 +7,8 @@ export type Props = {
   blog: IWordpressBlog;
 };
 
-export default function PostCategoryLink(props: Props) {
-  const categoryIds = props.blog.categories;
-  const categories =
-    (categoryIds.map((id) => {
-      for (let term of props.blog._embedded["wp:term"]) {
-        for (let item of term) {
-          if (item.id === id) {
-            return item;
-          }
-        }
-      }
-    }) as IWordpressBlog["_embedded"]["wp:term"][number][number][]) || [];
+export default function PostCategoryLink({ blog }: Props) {
+  const categories = getCategoriesFromPost(blog);
 
   return (
     <span className="cat-links">

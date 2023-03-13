@@ -2,16 +2,14 @@ import { IWordpressBlog } from "@/interfaces/wordpress-blog.interface";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDistance } from "date-fns";
+import getAuthorFromPost from "@/utils/getAuthorFromPost";
 
 export type Props = {
   blog: IWordpressBlog;
 };
 
 export default function PostEntryMeta(props: Props) {
-  const authorId = props.blog.author;
-  const author = props.blog._embedded.author.find(
-    (author) => author.id === authorId
-  )!;
+  const author = getAuthorFromPost(props.blog);
 
   return (
     <div className="entry-meta">

@@ -1,5 +1,8 @@
 import BlogLayout from "@/components/BlogLayout";
+import { formatDistance, format } from "date-fns";
 import { IWordpressBlog } from "@/interfaces/wordpress-blog.interface";
+import getAuthorFromPost from "@/utils/getAuthorFromPost";
+import getCategoriesFromPost from "@/utils/getCategoriesFromPost";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -27,17 +30,15 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   };
 };
 
-export default function BlogPost(props: Props) {
+export default function BlogPost({ blog }: Props) {
   const [htmlContent, setHtmlContent] = useState(() => {
-    if (!props.blog) {
+    if (!blog) {
       return "";
     }
 
     const {
-      blog: {
-        content: { rendered: contentHTML },
-      },
-    } = props;
+      content: { rendered: contentHTML },
+    } = blog;
 
     let newContent = contentHTML;
     while (newContent.indexOf("<iframe") !== -1) {
@@ -54,58 +55,61 @@ export default function BlogPost(props: Props) {
   });
 
   useEffect(() => {
-    if (!props.blog) return;
+    if (!blog) return;
 
     const {
-      blog: {
-        content: { rendered: contentHTML },
-      },
-    } = props;
+      content: { rendered: contentHTML },
+    } = blog;
     setHtmlContent(contentHTML);
-  }, [props.blog]);
+  }, [blog]);
 
-  if (!props.blog) return <h1>Loading...</h1>;
+  if (!blog) return <h1>Loading...</h1>;
 
   const {
-    blog: {
-      _embedded: { "wp:featuredmedia": featuredMedia },
-    },
-  } = props;
+    title: { rendered: titleHTML },
+    _embedded: { "wp:featuredmedia": featuredMedia },
+  } = blog;
+  const author = getAuthorFromPost(blog);
+  const postCategories = getCategoriesFromPost(blog);
 
   return (
     <BlogLayout>
       <div className="single__post--block">
         <article className="post type-post status-publish format-standard has-post-thumbnail hentry category-apps tag-grocerist tag-shopify tag-shopify-apps">
           <header className="entry-header">
-            <h1 className="entry-title mb-10">
-              Grocerist Launches E-Commerce Fulfilment App For Shopify Merchants{" "}
-            </h1>
+            <h1
+              className="entry-title mb-10"
+              dangerouslySetInnerHTML={{
+                __html: titleHTML,
+              }}
+            />
             <div className="entry-meta mb-16">
               <Image
                 width={50}
                 height={50}
                 alt="User profile"
                 className="user_image_post"
-                src="https://www.shopdigest.com/wp-content/uploads/2022/08/5295-e1660211263775.jpg"
+                src={author.avatar_urls["24"]}
               />
               <strong className="author__name">
-                <a href="https://www.shopdigest.com/author/akash/">Akash </a>
+                <a href={author.link}>{author.name}</a>
               </strong>
               &nbsp;
-              <span className="cat-links">
-                <a
-                  href="https://www.shopdigest.com/category/apps/"
-                  rel="category tag"
-                >
-                  Apps
-                </a>
-              </span>
+              {postCategories.map((category) => (
+                <span className="cat-links" key={category.id}>
+                  <a href={category.link} rel="category tag">
+                    {category.name}
+                  </a>
+                </span>
+              ))}
               <span className="posted-on">
                 <time
                   className="entry-date published"
                   dateTime="2023-03-10T14:57:50+05:30"
                 >
-                  March 10, 2023
+                  {formatDistance(new Date(blog.date), new Date(), {
+                    addSuffix: true,
+                  })}
                 </time>
                 <time className="updated" dateTime="2023-03-10T15:06:33+05:30">
                   March 10, 2023
@@ -133,6 +137,28 @@ export default function BlogPost(props: Props) {
             className="entry-content"
             dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
+          <footer className="entry-footer">
+            <div className="cat-links">
+              <h5>Explore relevant categories</h5>
+              {postCategories.map((category) => (
+                <a key={category.id} href={category.link} rel="category tag">
+                  {category.name}
+                </a>
+              ))}
+            </div>
+            <div className="tags-links">
+              <h5>Explore relevant tags</h5>
+              <a href="https://www.shopdigest.com/tag/grocerist/" rel="tag">
+                Grocerist
+              </a>{" "}
+              <a href="https://www.shopdigest.com/tag/shopify/" rel="tag">
+                Shopify
+              </a>{" "}
+              <a href="https://www.shopdigest.com/tag/shopify-apps/" rel="tag">
+                Shopify apps
+              </a>
+            </div>{" "}
+          </footer>
         </article>
       </div>
     </BlogLayout>
